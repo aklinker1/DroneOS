@@ -1,4 +1,4 @@
-package com.klinker.droneos.controls;
+package com.klinker.droneos;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;

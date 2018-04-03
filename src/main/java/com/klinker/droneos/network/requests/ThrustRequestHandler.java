@@ -2,7 +2,7 @@ package com.klinker.droneos.network.requests;
 
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.communication.messages.Query;
-import com.klinker.droneos.controls.ControlsNode;
+import com.klinker.droneos.ControlsNode;
 import com.klinker.droneos.network.NetworkNode;
 
 public class ThrustRequestHandler extends RequestHandler{

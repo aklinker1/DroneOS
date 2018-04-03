@@ -3,8 +3,6 @@ package com.klinker.droneos.arch.communication;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.manifest.Device;
 import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.utils.Log;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

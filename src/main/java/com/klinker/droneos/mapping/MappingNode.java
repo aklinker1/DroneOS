@@ -10,7 +10,7 @@ import com.klinker.droneos.arch.simulation.Simulation;
 import com.klinker.droneos.arch.simulation.map.BoatCollision;
 import com.klinker.droneos.arch.simulation.map.BuoyCollision;
 import com.klinker.droneos.arch.simulation.map.Waypoint;
-import com.klinker.droneos.controls.ControlsNode;
+import com.klinker.droneos.ControlsNode;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.math.Point;
