@@ -1,0 +1,21 @@
+.gradle
+.idea
+out
+build
+classes
+*.iml
+bin
+.project
+.settings
+/src/test/resources/*_write.*
+output
+
+# VS Code
+.classpath
+/.vscode
+/scripts
+*.code-workspace
+/scripts
+
+# macOS
+.DS_Store

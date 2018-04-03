@@ -1,0 +1,28 @@
+{
+  "devices": [
+    {
+      "id": 0,
+      "name": "RPi-Zero",
+      "ip_address": "127.0.0.1",
+      "port": 4000,
+      "nodes": [
+        {
+          "class": "com.klinker.droneos.cv.CVNode",
+          "data": "src/main/resources/node-data/cv/test.json"
+        },
+        {
+          "class": "com.klinker.droneos.mapping.MappingNode",
+          "data": "src/main/resources/node-data/mapping/test.json"
+        },
+        {
+          "class": "com.klinker.droneos.network.NetworkNode",
+          "data": "src/main/resources/node-data/network/test.json"
+        },
+        {
+          "class": "com.klinker.droneos.controls.ControlsNode",
+          "data": "src/main/resources/node-data/controls/simulation.json"
+        }
+      ]
+    }
+  ]
+}
