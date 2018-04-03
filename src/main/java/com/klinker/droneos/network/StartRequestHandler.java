@@ -1,7 +1,7 @@
-package com.klinker.droneos.network.requests;
+package com.klinker.droneos.network;
 
 import com.google.gson.JsonObject;
-import com.klinker.droneos.network.NetworkNode;
+import com.klinker.droneos.NetworkNode;
 
 /**
  * Class for handling the GET /tasks/start HTTP Request.

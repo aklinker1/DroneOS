@@ -1,7 +1,7 @@
-package com.klinker.droneos.network.requests;
+package com.klinker.droneos.network;
 
 import com.google.gson.JsonObject;
-import com.klinker.droneos.network.NetworkNode;
+import com.klinker.droneos.NetworkNode;
 import com.klinker.droneos.utils.Log;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;

@@ -1,4 +1,4 @@
-package com.klinker.droneos.network;
+package com.klinker.droneos;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -10,13 +10,13 @@ import com.google.gson.JsonPrimitive;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
-import com.klinker.droneos.network.requests.BoatRequestHandler;
-import com.klinker.droneos.network.requests.ConnectRequestHandler;
-import com.klinker.droneos.network.requests.ManualControlHandler;
-import com.klinker.droneos.network.requests.PingRequestHandler;
-import com.klinker.droneos.network.requests.RequestHandler;
-import com.klinker.droneos.network.requests.StartRequestHandler;
-import com.klinker.droneos.network.requests.ThrustRequestHandler;
+import com.klinker.droneos.network.InfoHandler;
+import com.klinker.droneos.network.ConnectRequestHandler;
+import com.klinker.droneos.network.ManualControlHandler;
+import com.klinker.droneos.network.PingRequestHandler;
+import com.klinker.droneos.network.RequestHandler;
+import com.klinker.droneos.network.StartRequestHandler;
+import com.klinker.droneos.network.ThrustRequestHandler;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.sun.net.httpserver.Headers;
@@ -131,7 +131,7 @@ public class NetworkNode extends Node {
                     new ConnectRequestHandler(this, "POST"),
                     new StartRequestHandler(this, "POST"),
                     new PingRequestHandler(this, "GET"),
-                    new BoatRequestHandler(this, "GET"),
+                    new InfoHandler(this, "GET"),
                     new ThrustRequestHandler(this, "GET"),
                     new ManualControlHandler(this,"POST")
             };

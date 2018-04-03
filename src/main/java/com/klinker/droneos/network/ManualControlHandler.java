@@ -1,9 +1,9 @@
-package com.klinker.droneos.network.requests;
+package com.klinker.droneos.network;
 
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.communication.messages.JsonMessage;
 import com.klinker.droneos.ControlsNode;
-import com.klinker.droneos.network.NetworkNode;
+import com.klinker.droneos.NetworkNode;
 
 public class ManualControlHandler extends RequestHandler{
     public ManualControlHandler(NetworkNode node, String method) {

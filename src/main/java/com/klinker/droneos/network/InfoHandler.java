@@ -1,10 +1,10 @@
-package com.klinker.droneos.network.requests;
+package com.klinker.droneos.network;
 
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.simulation.Simulation;
 import com.klinker.droneos.arch.simulation.map.BoatCollision;
-import com.klinker.droneos.network.NetworkNode;
+import com.klinker.droneos.NetworkNode;
 
 /**
  * Class for handling the GET /boat HTTP Request.
