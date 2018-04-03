@@ -9,9 +9,9 @@ import com.klinker.droneos.network.NetworkNode;
 /**
  * Class for handling the GET /boat HTTP Request.
  */
-public class BoatRequestHandler extends RequestHandler {
+public class InfoHandler extends RequestHandler {
 
-    public BoatRequestHandler(NetworkNode node, String method) {
+    public InfoHandler(NetworkNode node, String method) {
         super(node, method);
     }
 
