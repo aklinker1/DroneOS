@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.utils.random.RandomString;
-import com.klinker.droneos.utils.random.RandomString;
 
 public class Query extends JsonMessage {
 

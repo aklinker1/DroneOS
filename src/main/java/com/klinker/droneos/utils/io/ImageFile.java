@@ -1,14 +1,16 @@
 package com.klinker.droneos.utils.io;
 
-import com.klinker.droneos.cv.CVUtils;
-import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import javax.imageio.ImageIO;
+
+import com.klinker.droneos.cv.CVUtils;
+
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 /**
  * An implementation of {@link IOFile} that writes our {@link Mat} to

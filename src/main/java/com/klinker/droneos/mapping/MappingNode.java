@@ -1,7 +1,11 @@
 package com.klinker.droneos.mapping;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.klinker.droneos.ControlsNode;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.JsonMessage;
 import com.klinker.droneos.arch.communication.messages.Message;
@@ -10,13 +14,9 @@ import com.klinker.droneos.arch.simulation.Simulation;
 import com.klinker.droneos.arch.simulation.map.BoatCollision;
 import com.klinker.droneos.arch.simulation.map.BuoyCollision;
 import com.klinker.droneos.arch.simulation.map.Waypoint;
-import com.klinker.droneos.ControlsNode;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.math.Point;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * TODO: Node specific documentation.

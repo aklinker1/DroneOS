@@ -1,7 +1,6 @@
 package com.klinker.droneos.arch.communication;
 
 import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.communication.messages.Message;
 
 /**
  * This class is responsible for sending the messages across devices. If the

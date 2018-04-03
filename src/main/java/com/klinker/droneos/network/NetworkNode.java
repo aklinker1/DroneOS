@@ -1,22 +1,27 @@
 package com.klinker.droneos.network;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.URLDecoder;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
-import com.klinker.droneos.network.requests.*;
+import com.klinker.droneos.network.requests.BoatRequestHandler;
+import com.klinker.droneos.network.requests.ConnectRequestHandler;
+import com.klinker.droneos.network.requests.ManualControlHandler;
+import com.klinker.droneos.network.requests.PingRequestHandler;
+import com.klinker.droneos.network.requests.RequestHandler;
+import com.klinker.droneos.network.requests.StartRequestHandler;
+import com.klinker.droneos.network.requests.ThrustRequestHandler;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.network.requests.*;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
 
 public class NetworkNode extends Node {
 

@@ -1,10 +1,10 @@
 package com.klinker.droneos.utils.io;
 
-import com.klinker.droneos.utils.Log;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import com.klinker.droneos.utils.Log;
 
 /**
  * A wrapper class for a {@link File}. This class provides easy ways to read

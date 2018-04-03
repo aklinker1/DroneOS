@@ -1,13 +1,13 @@
 package com.klinker.droneos.utils.io;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 import com.google.gson.JsonElement;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 
 public class JsonFile extends IOFile<JsonElement> {
 

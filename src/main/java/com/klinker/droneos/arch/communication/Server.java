@@ -1,11 +1,5 @@
 package com.klinker.droneos.arch.communication;
 
-import com.klinker.droneos.arch.Core;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.utils.Log;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,6 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.HashMap;
+
+import com.klinker.droneos.arch.Core;
+import com.klinker.droneos.arch.communication.messages.Message;
+import com.klinker.droneos.utils.Log;
 
 /**
  * The client is part a connection to a {@link Server}. It can receive and

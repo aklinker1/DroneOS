@@ -1,5 +1,9 @@
 package com.klinker.droneos.arch.nodes;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
+
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
@@ -9,17 +13,6 @@ import com.klinker.droneos.arch.manifest.Manifest;
 import com.klinker.droneos.arch.manifest.NodeInfo;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.async.RunnableExecutor;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.communication.messages.Query;
-import com.klinker.droneos.arch.manifest.Device;
-import com.klinker.droneos.arch.manifest.Manifest;
-import com.klinker.droneos.arch.manifest.NodeInfo;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.async.RunnableExecutor;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
 
 public class NodeManager {
 

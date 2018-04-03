@@ -1,7 +1,6 @@
 package com.klinker.droneos.hardware;
 
 import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Log;
 
 public class PropellerReal extends Propeller {
 

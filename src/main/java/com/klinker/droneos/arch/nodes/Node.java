@@ -7,11 +7,6 @@ import com.klinker.droneos.arch.communication.messages.Query;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.async.RunnableExecutor;
 import com.klinker.droneos.utils.io.JsonFile;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.communication.messages.Query;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.async.RunnableExecutor;
-import com.klinker.droneos.utils.io.JsonFile;
 
 /**
  * Nodes are the main threads in which processes take place. They are all ran

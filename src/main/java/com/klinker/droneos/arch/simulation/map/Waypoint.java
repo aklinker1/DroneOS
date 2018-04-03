@@ -1,8 +1,5 @@
 package com.klinker.droneos.arch.simulation.map;
 
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.utils.math.Point;
 import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.math.Point;
 

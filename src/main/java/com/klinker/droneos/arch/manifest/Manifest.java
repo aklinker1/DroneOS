@@ -1,5 +1,8 @@
 package com.klinker.droneos.arch.manifest;
 
+import java.io.File;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -7,11 +10,6 @@ import com.google.gson.annotations.SerializedName;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.io.JsonFile;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.io.JsonFile;
-
-import java.io.File;
-import java.util.List;
 
 /**
  * A class that stores all the information in the Manifest file from the

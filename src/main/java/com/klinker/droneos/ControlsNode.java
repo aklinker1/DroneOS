@@ -10,13 +10,6 @@ import com.klinker.droneos.arch.simulation.map.BoatCollision;
 import com.klinker.droneos.hardware.Propeller;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.arch.communication.messages.JsonMessage;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.nodes.Node;
-import com.klinker.droneos.arch.simulation.Simulation;
-import com.klinker.droneos.arch.simulation.map.BoatCollision;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Utils;
 
 /**
  * To enter MANUAL mode, send a message with the following format:

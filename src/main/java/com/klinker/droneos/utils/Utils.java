@@ -1,7 +1,6 @@
 package com.klinker.droneos.utils;
 
 import com.klinker.droneos.utils.math.Point;
-import com.klinker.droneos.utils.math.Point;
 
 public class Utils {
 

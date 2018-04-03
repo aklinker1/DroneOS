@@ -1,13 +1,13 @@
 package com.klinker.droneos.utils;
 
 
-import com.klinker.droneos.arch.Core;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+
+import com.klinker.droneos.arch.Core;
 
 
 /**

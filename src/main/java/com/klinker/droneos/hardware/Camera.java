@@ -2,8 +2,7 @@ package com.klinker.droneos.hardware;
 
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.arch.Core;
-import com.klinker.droneos.utils.Log;
+
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 

@@ -2,7 +2,6 @@ package com.klinker.droneos.arch.simulation.map;
 
 import com.klinker.droneos.arch.simulation.SimulationUtils;
 import com.klinker.droneos.utils.math.Point;
-import com.klinker.droneos.utils.math.Point;
 
 /**
  * This class is represented as a circle.

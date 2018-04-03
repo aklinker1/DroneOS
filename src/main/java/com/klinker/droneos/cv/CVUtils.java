@@ -1,8 +1,8 @@
 package com.klinker.droneos.cv;
 
-import org.opencv.core.Mat;
-
 import java.awt.image.BufferedImage;
+
+import org.opencv.core.Mat;
 
 public class CVUtils {
 

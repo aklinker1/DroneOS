@@ -7,10 +7,7 @@ import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.hardware.Camera;
 import com.klinker.droneos.utils.io.ImageFile;
-import com.klinker.droneos.arch.Core;
-import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.nodes.Node;
-import com.klinker.droneos.utils.io.ImageFile;
+
 import org.opencv.core.Mat;
 
 /**

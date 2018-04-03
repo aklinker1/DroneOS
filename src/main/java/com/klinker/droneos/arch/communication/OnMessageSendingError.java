@@ -1,7 +1,6 @@
 package com.klinker.droneos.arch.communication;
 
 import com.klinker.droneos.arch.communication.messages.Message;
-import com.klinker.droneos.arch.communication.messages.Message;
 
 /**
  * An interface that handles callbacks for the sending

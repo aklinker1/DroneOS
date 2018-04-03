@@ -4,10 +4,6 @@ import com.klinker.droneos.arch.simulation.Simulation;
 import com.klinker.droneos.arch.simulation.map.BoatCollision;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.arch.simulation.Simulation;
-import com.klinker.droneos.arch.simulation.map.BoatCollision;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Utils;
 
 public class PropellerSim extends Propeller {
 

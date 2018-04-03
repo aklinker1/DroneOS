@@ -5,9 +5,6 @@ import com.klinker.droneos.arch.simulation.SimulationUtils;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.math.Point;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.utils.math.Point;
 
 /**
  * This class is represented as a circle. The x and y positions are based off

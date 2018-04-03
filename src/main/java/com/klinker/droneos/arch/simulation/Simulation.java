@@ -1,5 +1,8 @@
 package com.klinker.droneos.arch.simulation;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.Core;
@@ -10,18 +13,9 @@ import com.klinker.droneos.arch.simulation.map.LineSegmentCollision;
 import com.klinker.droneos.arch.simulation.map.Waypoint;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
-import com.klinker.droneos.utils.io.JsonFile;
-import com.klinker.droneos.utils.math.Point;
-import com.klinker.droneos.arch.simulation.map.*;
-import com.klinker.droneos.utils.Log;
-import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.async.RunnableExecutor;
 import com.klinker.droneos.utils.io.JsonFile;
 import com.klinker.droneos.utils.math.Point;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * This is the class that holds all the data for the simulation. Once the
