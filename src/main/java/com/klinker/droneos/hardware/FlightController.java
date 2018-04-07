@@ -39,4 +39,20 @@ public abstract class FlightController {
 
     public abstract void move(double strafeX, double strafeY, double angle, double lift);
 
+    public int getStrafeXPWM() {
+        return mStrafeXPWM;
+    }
+
+    public int getStrafeYPWM() {
+        return mStrafeYPWM;
+    }
+
+    public int getAnglePWM() {
+        return mAnglePWM;
+    }
+
+    public int getLiftPWM() {
+        return mLiftPWM;
+    }
+
 }
