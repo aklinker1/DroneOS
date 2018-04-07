@@ -1,6 +1,8 @@
 package com.klinker.droneos.arch.simulation.map;
 
+import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.simulation.Simulation;
+import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.klinker.droneos.utils.math.Point;
 
@@ -132,17 +134,17 @@ public class DroneCollision extends CircleCollision {
      * Update position then change velocity and angle.
      */
     public void updatePosition() {
-        // Update first order
-        this.c.x += mVelocity.x / 60.0;
-        this.c.y += mVelocity.y / 60.0;
-        this.c.z += mVelocity.z / 60.0;
-        mAngle += mAngularVelocity / 60.0;
+        // Update third order
+        this.mAcceleration.x = Utils.map(mStrafeXPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
+        this.mAcceleration.y = Utils.map(mStrafeYPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
+        this.mAcceleration.z = (Utils.map(mLiftPWM, 0, MAX_PWM, 0, MAX_LIFT) - MASS) * 9.81 / MASS;
+        this.mAngularAcceleration = Utils.map(mAnglePWM, 0, MAX_PWM, -MAX_ALPHA, MAX_ALPHA);
 
         // Update Second order
-        mVelocity.x += mAcceleration.x / 360.0;
-        mVelocity.y += mAcceleration.y / 360.0;
-        mVelocity.z += mAcceleration.z / 360.0;
-        mAngularVelocity += mAngularAcceleration / 360.0;
+        mVelocity.x += mAcceleration.x / 60.0;
+        mVelocity.y += mAcceleration.y / 60.0;
+        mVelocity.z += mAcceleration.z / 60.0;
+        mAngularVelocity += mAngularAcceleration / 60.0;
 
         if (Math.abs(mVelocity.x) > MAX_VELOCITY.x)
             mVelocity.x = MAX_VELOCITY.x * (mVelocity.x < 0 ? -1 : 1);
@@ -151,11 +153,28 @@ public class DroneCollision extends CircleCollision {
         if (Math.abs(mVelocity.z) > MAX_VELOCITY.z)
             mVelocity.z = MAX_VELOCITY.z * (mVelocity.z < 0 ? -1 : 1);
 
-        // Update third order
-        this.mAcceleration.x = Utils.map(mStrafeXPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
-        this.mAcceleration.y = Utils.map(mStrafeYPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
-        this.mAcceleration.z = Utils.map(mLiftPWM, 0, MAX_PWM, 0, MAX_LIFT) * 9.81 / MASS;
-        this.mAngularAcceleration = Utils.map(mAnglePWM, 0, MAX_PWM, -MAX_ALPHA, MAX_ALPHA);
+        // Update first order
+        this.c.x += mVelocity.x / 60.0;
+        this.c.y += mVelocity.y / 60.0;
+        this.c.z += mVelocity.z / 60.0;
+        mAngle += mAngularVelocity / 60.0;
+
+        if (this.c.z < 0) {
+            if (mVelocity.z < -1) {
+                Log.e("simulation", "Crashed into the ground at " + mVelocity.z + " m/s");
+                Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
+            } else {
+                this.c.z = 0;
+                mVelocity.z = 0;
+                mAcceleration.z = 0;
+            }
+        }
+        if (this.c.z > 5) {
+            Log.e("simulation", "Crashed into the ceiling at " + mVelocity.z + " m/s");
+            Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
+        }
+
+        Log.d("simulation", String.format("Updated: %f, %f, %f", this.c.z, mVelocity.z, mAcceleration.z));
     }
 
     ///// Getters //////////////////////////////////////////////////////////////

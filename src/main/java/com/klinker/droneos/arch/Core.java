@@ -238,7 +238,10 @@ public class Core {
 
         while (!args.isEmpty()) {
             String arg = args.removeFirst();
-            if (arg.startsWith("-")) {
+            if (arg.equals("-simulation")) {
+                IS_SIMULATION = true;
+                SIMULATION = new Simulation();
+            } else if (arg.startsWith("-")) {
                 if (args.isEmpty()) {
                     Log.e(
                             "arch",
@@ -265,10 +268,6 @@ public class Core {
                                 break;
                             case "-colored-log":
                                 IS_LOG_COLORED = Boolean.parseBoolean(param);
-                                break;
-                            case "-simulation":
-                                IS_SIMULATION = true;
-                                SIMULATION = new Simulation(param);
                                 break;
                         }
                     }

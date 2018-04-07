@@ -7,20 +7,20 @@
       "port": 4000,
       "nodes": [
         {
-          "class": "com.klinker.droneos.cv.CVNode",
-          "data": "src/main/resources/node-data/cv/test.json"
+          "class": "com.klinker.droneos.CVNode",
+          "data": "src/main/resources/node-data/cv.json"
         },
         {
-          "class": "com.klinker.droneos.mapping.MappingNode",
-          "data": "src/main/resources/node-data/mapping/test.json"
+          "class": "com.klinker.droneos.HardwareNode",
+          "data": "src/main/resources/node-data/hardware.json"
         },
         {
-          "class": "com.klinker.droneos.network.NetworkNode",
-          "data": "src/main/resources/node-data/network/test.json"
+          "class": "com.klinker.droneos.NetworkNode",
+          "data": "src/main/resources/node-data/network.json"
         },
         {
-          "class": "com.klinker.droneos.controls.ControlsNode",
-          "data": "src/main/resources/node-data/controls/simulation.json"
+          "class": "com.klinker.droneos.ControlsNode",
+          "data": "src/main/resources/node-data/control-simulation.json"
         }
       ]
     }

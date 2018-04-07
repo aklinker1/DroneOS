@@ -72,61 +72,9 @@ public class Simulation {
     /**
      * Constructs the simulation and it's environment. The path to the map
      * data should be given in the manifest
-     * @param pathToMap Example: "src/resources/simulation-maps/example.json"
      */
-    public Simulation(String pathToMap) {
+    public Simulation() {
         mIsRunning = false;
-        mObjects = new ArrayList<>();
-        mBuoys = new ArrayList<>();
-        mWaypoints = new LinkedList<>();
-
-        JsonFile file = new JsonFile(pathToMap);
-        JsonObject map = file.read().getAsJsonObject();
-
-        // load the bounds
-        if (map.has("bounds")) {
-            ArrayList<Point> boundPoints = new ArrayList<>();
-            for (JsonElement bound : map.get("bounds")
-                    .getAsJsonArray()) {
-                boundPoints.add(new Point(
-                        bound.getAsJsonObject().get("x").getAsDouble(),
-                        bound.getAsJsonObject().get("y").getAsDouble()
-                ));
-            }
-            boundPoints.add(boundPoints.get(0));
-            for (int i = 0; i < boundPoints.size() - 1; i++) {
-                mObjects.add(new LineSegmentCollision(
-                        boundPoints.get(i),
-                        boundPoints.get(i + 1)
-                ));
-            }
-        }
-
-        // load the buoys
-        if (map.has("buoys")) {
-            for (JsonElement buoy : map.get("buoys").getAsJsonArray()) {
-                BuoyCollision b = new BuoyCollision(
-                        buoy.getAsJsonObject().get("x").getAsDouble(),
-                        buoy.getAsJsonObject().get("y").getAsDouble(),
-                        buoy.getAsJsonObject().get("size").getAsString()
-                );
-                mObjects.add(b);
-                mBuoys.add(b);
-            }
-        }
-
-        // load the waypoints
-        if (map.has("waypoints")) {
-            for (JsonElement buoy : map.get("waypoints").getAsJsonArray()) {
-                Waypoint w = new Waypoint(
-                        buoy.getAsJsonObject().get("x").getAsDouble(),
-                        buoy.getAsJsonObject().get("y").getAsDouble(),
-                        buoy.getAsJsonObject().get("size").getAsDouble()
-                );
-                mWaypoints.add(w);
-            }
-        }
-
         // set boat start location
         mDrone = new DroneCollision(
                 this,
@@ -135,12 +83,7 @@ public class Simulation {
                 Utils.random(0, Math.PI * 2)
         );
 
-        // show some info on the simulation.
-        Log.d("simulation", "########## Simulation Objects ##########");
-        for (CollisionObject o : mObjects) {
-            Log.d("simulation", o.toString());
-        }
-        Log.d("simulation", "########################################");
+        Log.v("simulation", "##### SIMULATION #####");
     }
 
 
@@ -182,12 +125,6 @@ public class Simulation {
      */
     private void loop() {
         mDrone.updatePosition();
-        for (CollisionObject object : mObjects) {
-            if (mDrone.collide(object) != null) {
-                Log.e("simulation", "Boat collided with: " + object.toString());
-                Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
-            }
-        }
     }
 
     public void stop() {
