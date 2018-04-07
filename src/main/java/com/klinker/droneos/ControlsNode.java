@@ -1,11 +1,14 @@
 package com.klinker.droneos;
 
+import javax.naming.ldap.ControlFactory;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.klinker.droneos.arch.communication.messages.JsonMessage;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.hardware.FlightController;
+import com.klinker.droneos.utils.Log;
 
 /**
  * To enter MANUAL mode, send a message with the following format:
@@ -34,13 +37,12 @@ public class ControlsNode extends Node {
 
     private FlightController mFlightController;
 
-
     ///// Construction /////////////////////////////////////////////////////////
 
     public ControlsNode(String dataPath) {
         super(dataPath);
+        mFlightController = FlightController.newInstance(0, 1, 2, 3);
     }
-
 
     ///// Node Callbacks ///////////////////////////////////////////////////////
 
@@ -48,46 +50,51 @@ public class ControlsNode extends Node {
      * The {@link ControlsNode} only acts on a couple of messages
      * <ol>
      *     <li>To change to set the next destination vector: <code>{
- *           "x": double,
- *           "y": double,
+    *           "x": double,
+    *           "y": double,
      *       "manual": boolean
      *     }</code></li>
      *     <li>To switch between manual and automatic: <code>{
      *       "manual": boolean
- *         }</code></li>
+    *         }</code></li>
      * </ol>
      * @param message The message received
      */
     @Override
     protected void onReceiveMessage(Message message) {
-        if (message.getClass() != JsonMessage.class) return;
+        if (message.getClass() != JsonMessage.class)
+            return;
         JsonObject json = ((JsonMessage) message).getData();
 
-        if (message.getName().equals("drive") && json.get("isManual").getAsBoolean() == mIsManual) {
-            if (mIsManual) {
-                // Call manual driving
-            } else {
-                // call automatic flight
-            }
+        if (message.getName().equals("control") && json.get("isManual").getAsBoolean() == mIsManual) {
+            mFlightController.move(
+                json.get("strafeX").getAsDouble(), 
+                json.get("strafeY").getAsDouble(),
+                json.get("angle").getAsDouble(), 
+                json.get("lift").getAsDouble()
+            );
         } else if (message.getName().equals("control-switch")) {
             mIsManual = json.get("manual").getAsBoolean();
         } else {
-            System.out.println("ignored");
+            Log.d("controls", "Ignored message: " + message.toString());
         }
     }
 
     @Override
     protected JsonPrimitive queryProperty(String property, JsonObject inputs) {
         switch (property) {
-            // case "leftThrust":
-            //     return new JsonPrimitive(mLeftPropeller.getThrust());
-            // case "rightThrust":
-            //     return new JsonPrimitive(mRightPropeller.getThrust());
-            default:
-                return null;
+        case "strafeX":
+            return new JsonPrimitive(mFlightController.getStrafeXPWM());
+        case "strafeY":
+            return new JsonPrimitive(mFlightController.getStrafeYPWM());
+        case "angle":
+            return new JsonPrimitive(mFlightController.getAnglePWM());
+        case "lift":
+            return new JsonPrimitive(mFlightController.getLiftPWM());
+        default:
+            return null;
         }
     }
-
 
     ///// Task Callbacks ///////////////////////////////////////////////////////
 
@@ -101,7 +108,5 @@ public class ControlsNode extends Node {
         super.onFinishUpTask();
     }
 
-
     ///// Member Methods ///////////////////////////////////////////////////////
-
 }

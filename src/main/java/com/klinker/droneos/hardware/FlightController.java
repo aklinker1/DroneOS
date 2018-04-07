@@ -15,16 +15,26 @@ public abstract class FlightController {
         }
     }
 
-    private int mStrafeXPin;
-    private int mStrafeYPin;
-    private int mAnglePin;
-    private int mLiftPin;
+    protected int mStrafeXPin;
+    protected int mStrafeYPin;
+    protected int mAnglePin;
+    protected int mLiftPin;
+
+    protected int mStrafeXPWM;
+    protected int mStrafeYPWM;
+    protected int mAnglePWM;
+    protected int mLiftPWM;
 
     protected FlightController(int strafeXPin, int strafeYPin, int anglePin, int liftPin) {
         this.mStrafeXPin = strafeXPin;
         this.mStrafeYPin = strafeYPin;
         this.mAnglePin = anglePin;
         this.mLiftPin = liftPin;
+        
+        this.mStrafeXPWM = 0;
+        this.mStrafeYPWM = 0;
+        this.mAnglePWM = 0;
+        this.mLiftPWM = 0;
     }
 
     public abstract void move(double strafeX, double strafeY, double angle, double lift);

@@ -12,15 +12,18 @@ public class ManualControlHandler extends RequestHandler{
 
     @Override
     protected Object performRequest(JsonObject parameters) {
-        if (parameters.has("lThrust") && parameters.has("rThrust")) {
+        if (parameters.has("strafeX") && parameters.has("strafeY") && parameters.has("angle")
+                && parameters.has("lift")) {
             JsonObject data = new JsonObject();
-            data.addProperty("lThrust", parameters.get("lThrust").getAsDouble());
-            data.addProperty("rThrust", parameters.get("rThrust").getAsDouble());
+            data.addProperty("strafeX", parameters.get("strafeX").getAsDouble());
+            data.addProperty("strafeY", parameters.get("strafeY").getAsDouble());
+            data.addProperty("angle", parameters.get("angle").getAsDouble());
+            data.addProperty("lift", parameters.get("lift").getAsDouble());
             data.addProperty("isManuel",true);
             JsonMessage message = new JsonMessage(
                     ControlsNode.class,
                     NetworkNode.class,
-                    "drive",
+                    "control",
                     data
             );
             this.getNode().sendMessage(message);
