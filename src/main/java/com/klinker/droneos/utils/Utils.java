@@ -1,5 +1,7 @@
 package com.klinker.droneos.utils;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.klinker.droneos.utils.math.Point;
 
 public class Utils {
@@ -85,6 +87,10 @@ public class Utils {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = R * c;
         return d * 1000; // meters
+    }
+
+    public static double random(double min, double max) {
+        return ThreadLocalRandom.current().nextDouble(min, max);
     }
 
 }

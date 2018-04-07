@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klinker.droneos.arch.Core;
-import com.klinker.droneos.arch.simulation.map.BoatCollision;
+import com.klinker.droneos.arch.simulation.map.DroneCollision;
 import com.klinker.droneos.arch.simulation.map.BuoyCollision;
 import com.klinker.droneos.arch.simulation.map.CollisionObject;
 import com.klinker.droneos.arch.simulation.map.LineSegmentCollision;
@@ -62,7 +62,7 @@ public class Simulation {
 
     private LinkedList<Waypoint> mWaypoints;
 
-    private BoatCollision mBoat;
+    private DroneCollision mDrone;
 
     private boolean mIsRunning;
 
@@ -128,12 +128,11 @@ public class Simulation {
         }
 
         // set boat start location
-        JsonObject boatInfo = map.get("boat").getAsJsonObject();
-        mBoat = new BoatCollision(
+        mDrone = new DroneCollision(
                 this,
-                boatInfo.get("x").getAsDouble(),
-                boatInfo.get("y").getAsDouble(),
-                Math.toRadians(boatInfo.get("angle").getAsDouble())
+                Utils.random(-10, 10),
+                Utils.random(-10, 10),
+                Utils.random(0, Math.PI * 2)
         );
 
         // show some info on the simulation.
@@ -182,9 +181,9 @@ public class Simulation {
      * Check for boat collisions, then update.
      */
     private void loop() {
-        mBoat.updatePosition();
+        mDrone.updatePosition();
         for (CollisionObject object : mObjects) {
-            if (mBoat.collide(object) != null) {
+            if (mDrone.collide(object) != null) {
                 Log.e("simulation", "Boat collided with: " + object.toString());
                 Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
             }
@@ -198,8 +197,8 @@ public class Simulation {
 
     ///// Getters //////////////////////////////////////////////////////////////
 
-    public BoatCollision getBoat() {
-        return mBoat;
+    public DroneCollision getDrone() {
+        return mDrone;
     }
 
     public ArrayList<CollisionObject> getObjects() {
