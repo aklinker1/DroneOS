@@ -105,6 +105,7 @@ public class NodeManager {
     public void start() {
         Node.Task[] orderedTasks = new Node.Task[] {
                 Node.Task.INITIALIZING,
+                Node.Task.MANUAL_FIND,
                 Node.Task.FINISH_UP
         };
 

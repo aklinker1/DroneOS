@@ -31,7 +31,7 @@ public class DroneCollision extends CircleCollision {
     /**
      * Max linear acceleration [m/s^2].
      */
-    public static final double MAX_STRAFE = 5;
+    public static final double MAX_STRAFE = 30;
 
     /**
      * The max rotation speed of the boat in [rad/s]. 90 [deg/s].
@@ -41,7 +41,7 @@ public class DroneCollision extends CircleCollision {
     /**
      * The max rotation speed of the boat in [rad/s^2]. 90 [deg/s^2].
      */
-    public static final double MAX_ALPHA = MAX_OMEGA;
+    public static final double MAX_ALPHA = Math.PI / 2.0 * 60;
 
     /**
      * The max velocity of the boat in [m/s].
@@ -135,16 +135,23 @@ public class DroneCollision extends CircleCollision {
      */
     public void updatePosition() {
         // Update third order
-        this.mAcceleration.x = Utils.map(mStrafeXPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
-        this.mAcceleration.y = Utils.map(mStrafeYPWM, 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
-        this.mAcceleration.z = (Utils.map(mLiftPWM, 0, MAX_PWM, 0, MAX_LIFT) - MASS) * 9.81 / MASS;
-        this.mAngularAcceleration = Utils.map(mAnglePWM, 0, MAX_PWM, -MAX_ALPHA, MAX_ALPHA);
+        this.mAcceleration.x = Utils.map(getStrafeXPWM(), 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
+        this.mAcceleration.y = Utils.map(getStrafeYPWM(), 0, MAX_PWM, -MAX_STRAFE, MAX_STRAFE);
+        this.mAcceleration.z = (Utils.map(getLiftPWM(), 0, MAX_PWM, 0, MAX_LIFT) - MASS) * 9.81 / MASS;
+        this.mAngularAcceleration = Utils.map(getAnglePWM(), 0, MAX_PWM, -MAX_ALPHA, MAX_ALPHA);
+
 
         // Update Second order
-        mVelocity.x += mAcceleration.x / 60.0;
-        mVelocity.y += mAcceleration.y / 60.0;
-        mVelocity.z += mAcceleration.z / 60.0;
-        mAngularVelocity += mAngularAcceleration / 60.0;
+        mVelocity.x += (mAcceleration.x * mVelocity.x < 0 ? 2 : 1) * mAcceleration.x / Simulation.FPS;
+        mVelocity.y += (mAcceleration.y * mVelocity.y < 0 ? 2 : 1) * mAcceleration.y / Simulation.FPS;
+        mVelocity.z += (mAcceleration.z * mVelocity.z < 0 ? 2 : 1) * mAcceleration.z / Simulation.FPS;
+        mAngularVelocity = mAngularAcceleration / Simulation.FPS;
+
+        if (mAcceleration.x == 0) mVelocity.x -= 0.1 * mVelocity.x;
+        if (mAcceleration.y == 0) mVelocity.y -= 0.1 * mVelocity.y;
+        // if (mAngularAcceleration == 0) mAngularVelocity -= 0.1 * mAngularVelocity;
+        // if (Math.abs(mVelocity.x) < 0.01) mVelocity.x = 0;
+        // if (Math.abs(mVelocity.y) < 0.01) mVelocity.y = 0;
 
         if (Math.abs(mVelocity.x) > MAX_VELOCITY.x)
             mVelocity.x = MAX_VELOCITY.x * (mVelocity.x < 0 ? -1 : 1);
@@ -154,27 +161,34 @@ public class DroneCollision extends CircleCollision {
             mVelocity.z = MAX_VELOCITY.z * (mVelocity.z < 0 ? -1 : 1);
 
         // Update first order
-        this.c.x += mVelocity.x / 60.0;
-        this.c.y += mVelocity.y / 60.0;
         this.c.z += mVelocity.z / 60.0;
-        mAngle += mAngularVelocity / 60.0;
 
         if (this.c.z < 0) {
-            if (mVelocity.z < -1) {
+            if (mVelocity.z < -0.5) {
+                Log.w("simulation", "Hit the ground hard at " + mVelocity.z + " m/s");
+            } else if (mVelocity.z < -1) {
                 Log.e("simulation", "Crashed into the ground at " + mVelocity.z + " m/s");
                 Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
-            } else {
-                this.c.z = 0;
-                mVelocity.z = 0;
-                mAcceleration.z = 0;
             }
+            this.c.z = 0;
+            mVelocity.z = 0;
+            mAcceleration.z = 0;
         }
-        if (this.c.z > 5) {
-            Log.e("simulation", "Crashed into the ceiling at " + mVelocity.z + " m/s");
-            Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
+        if (this.c.z > 0) {
+            double xSpeed = mVelocity.x * Math.cos(mAngle) + mVelocity.y * Math.sin(mAngle);
+            double ySpeed = mVelocity.x * Math.sin(mAngle) + mVelocity.y * Math.cos(mAngle);
+            this.c.x += xSpeed / 60.0;
+            this.c.y += ySpeed / 60.0;
+            mAngle += mAngularVelocity / 60.0;
         }
+        // if (this.c.z > 5) {
+        //     Log.e("simulation", "Crashed into the ceiling at " + mVelocity.z + " m/s");
+        //     Core.exit(Core.EXIT_CODE_SIMULATION_FATAL);
+        // }
 
-        Log.d("simulation", String.format("Updated: %f, %f, %f", this.c.z, mVelocity.z, mAcceleration.z));
+        // Log.d("simulation", "position: " + this.c.toString());
+        Log.v("simulation", "velocity: " + mVelocity.toString());
+        // Log.w("simulation", "accelera: " + mAcceleration.toString());
     }
 
     ///// Getters //////////////////////////////////////////////////////////////
@@ -193,6 +207,22 @@ public class DroneCollision extends CircleCollision {
 
     public synchronized Point getPoint() {
         return c;
+    }
+
+    public synchronized int getStrafeXPWM() {
+        return this.mStrafeXPWM;
+    }
+
+    public synchronized int getStrafeYPWM() {
+        return this.mStrafeYPWM;
+    }
+
+    public synchronized int getLiftPWM() {
+        return this.mLiftPWM;
+    }
+
+    public synchronized int getAnglePWM() {
+        return this.mAnglePWM;
     }
 
     ///// Setters //////////////////////////////////////////////////////////////

@@ -29,14 +29,18 @@ public abstract class Node {
      * The current task the node will be running in.
      */
     public enum Task {
-        /**
-         * @see Node#onInitializingTask()
-         */
-        INITIALIZING,
-        /**
-         * @see Node#onFinishUpTask()
-         */
-        FINISH_UP
+    /**
+     * @see Node#onInitializingTask()
+     */
+    INITIALIZING,
+    /**
+     * @see Node#onManualFindTask()
+     */
+    MANUAL_FIND,
+    /**
+     * @see Node#onFinishUpTask()
+     */
+    FINISH_UP
     }
 
     ///// Member Variables /////////////////////////////////////////////////////
@@ -53,7 +57,6 @@ public abstract class Node {
 
     private JsonObject mData;
 
-
     ///// Construction /////////////////////////////////////////////////////////
     protected Node(String dataPath) {
         mMessageExecutor = RunnableExecutor.newParallel(10);
@@ -67,7 +70,6 @@ public abstract class Node {
         Log.d("arch", "Constructed " + getClass().getSimpleName());
     }
 
-
     ///// Member Methods ///////////////////////////////////////////////////////
 
     /**
@@ -79,15 +81,17 @@ public abstract class Node {
      */
     public void runTask(Task task) {
         switch (task) {
-            case INITIALIZING:
-                onInitializingTask();
-                break;
-            case FINISH_UP:
-                onFinishUpTask();
-                break;
+        case INITIALIZING:
+            onInitializingTask();
+            break;
+        case MANUAL_FIND:
+            onManualFindTask();
+            break;
+        case FINISH_UP:
+            onFinishUpTask();
+            break;
         }
     }
-
 
     ///// Member Methods ///////////////////////////////////////////////////////
 
@@ -105,8 +109,7 @@ public abstract class Node {
      *               input, or null if no input was given.
      * @return The object to return for the query. Must be of the
      */
-    protected abstract JsonPrimitive queryProperty(String property, JsonObject
-            inputs);
+    protected abstract JsonPrimitive queryProperty(String property, JsonObject inputs);
 
     /**
      * Called when the system is exiting and the run is finished.
@@ -123,11 +126,7 @@ public abstract class Node {
      */
     public void sendMessage(Message message) {
         if (mNodeManager == null) {
-            Log.w(
-                    "arch",
-                    "NodeManager for " + this.getClass().getSimpleName()
-                            + " is null"
-            );
+            Log.w("arch", "NodeManager for " + this.getClass().getSimpleName() + " is null");
             return;
         }
 
@@ -142,31 +141,19 @@ public abstract class Node {
         });
         int warningTaskCount = RunnableExecutor.MAX_PARALLEL_COUNT / 3;
         if (mTaskCount > warningTaskCount) {
-            Log.w(
-                    "arch",
-                    getClass().getSimpleName() + " has more than " +
-                            warningTaskCount + " active threads in parallel. " +
-                            "Be careful to not excede " +
-                            RunnableExecutor.MAX_PARALLEL_COUNT
-            );
+            Log.w("arch",
+                    getClass().getSimpleName() + " has more than " + warningTaskCount + " active threads in parallel. "
+                            + "Be careful to not excede " + RunnableExecutor.MAX_PARALLEL_COUNT);
         }
         if (mTaskCount > RunnableExecutor.MAX_PARALLEL_COUNT) {
-            Log.e(
-                    "arch",
-                    getClass().getSimpleName() + " has more than 25 " +
-                            "tasks running. Change how you handle the message" +
-                            " results."
-            );
+            Log.e("arch", getClass().getSimpleName() + " has more than 25 "
+                    + "tasks running. Change how you handle the message" + " results.");
         }
     }
 
     public JsonObject sendQuery(Query query) {
         if (mNodeManager == null) {
-            Log.w(
-                    "arch",
-                    "NodeManager for " + this.getClass().getSimpleName()
-                            + " is null"
-            );
+            Log.w("arch", "NodeManager for " + this.getClass().getSimpleName() + " is null");
             return null;
         }
 
@@ -196,7 +183,6 @@ public abstract class Node {
         mTaskCount += amount;
     }
 
-
     ///// Task Methods /////////////////////////////////////////////////////////
 
     /**
@@ -206,10 +192,17 @@ public abstract class Node {
      * connected to the GUI.
      */
     protected void onInitializingTask() {
-        Log.d(
-                "arch",
-                getClass().getSimpleName() + " - onInitializingTask()"
-        );
+        Log.d("arch", getClass().getSimpleName() + " - onInitializingTask()");
+    }
+
+    /**
+     * The Node doesn't have to be doing anything during this time. This method
+     * does not have to be overridden, except in special circumstances. Ex:
+     * The networking node should prevent further execution until it is
+     * connected to the GUI.
+     */
+    protected void onManualFindTask() {
+        Log.d("arch", getClass().getSimpleName() + " - onManualFindTask()");
     }
 
     /**
@@ -218,12 +211,8 @@ public abstract class Node {
      * NetworkNode, and a few other nodes will keep running.
      */
     protected void onFinishUpTask() {
-        Log.d(
-                "arch",
-                getClass().getSimpleName() + " - onFinishUpTask()"
-        );
+        Log.d("arch", getClass().getSimpleName() + " - onFinishUpTask()");
     }
-
 
     ///// Getters //////////////////////////////////////////////////////////////
 

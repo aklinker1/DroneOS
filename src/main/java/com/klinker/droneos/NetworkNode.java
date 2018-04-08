@@ -4,19 +4,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
-import com.klinker.droneos.network.ConnectRequestHandler;
 import com.klinker.droneos.network.InfoHandler;
 import com.klinker.droneos.network.ManualControlHandler;
 import com.klinker.droneos.network.PingRequestHandler;
 import com.klinker.droneos.network.RequestHandler;
-import com.klinker.droneos.network.StartRequestHandler;
-import com.klinker.droneos.network.ThrustRequestHandler;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
 import com.sun.net.httpserver.Headers;
@@ -87,6 +85,8 @@ public class NetworkNode extends Node {
      */
     private HttpServer mServer;
 
+    private int mPort;
+
     /**
      * Whether or not the system should wait for the GUI on initialization.
      * If set to true in the node's data file, it will skip waiting for the gui.
@@ -124,15 +124,12 @@ public class NetworkNode extends Node {
         mIsStarted = false;
         mIsConnected = false;
         try {
-            int port = getData().get("port").getAsInt();
-            mServer = HttpServer.create(new InetSocketAddress(port), 0);
+            mPort = getData().get("port").getAsInt();
+            mServer = HttpServer.create(new InetSocketAddress(mPort), 0);
 
             RequestHandler[] requestEndpointHandlers = new RequestHandler[] {
-                    new ConnectRequestHandler(this, "POST"),
-                    new StartRequestHandler(this, "POST"),
                     new PingRequestHandler(this, "GET"),
                     new InfoHandler(this, "GET"),
-                    new ThrustRequestHandler(this, "GET"),
                     new ManualControlHandler(this,"POST")
             };
             for (RequestHandler handler : requestEndpointHandlers) {
@@ -171,6 +168,12 @@ public class NetworkNode extends Node {
     protected void onInitializingTask() {
         super.onInitializingTask();
         mServer.start();
+        try {
+            Log.d("network", "URL: http:" + Utils.getLocalHostLANAddress() + ":" + mPort + "/");
+        } catch (UnknownHostException e) {
+            Log.e("network", "Error getting IPv4 Address");
+        }
+
         if (!mAutoStart) {
             Log.d("network", "Awaiting connection to GUI");
             while (!isConnected()) {

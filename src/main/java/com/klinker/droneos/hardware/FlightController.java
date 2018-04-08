@@ -1,6 +1,7 @@
 package com.klinker.droneos.hardware;
 
 import com.klinker.droneos.arch.Core;
+import com.klinker.droneos.utils.Utils;
 
 public abstract class FlightController {
 
@@ -8,8 +9,7 @@ public abstract class FlightController {
 
     public static FlightController newInstance(int strafeXPin, int strafeYPin, int anglePin, int liftPin) {
         if (Core.IS_SIMULATION) {
-            // return new FlightControllerSim(strafeXPin, strafeYPin, anglePin, liftPin);
-            return null;
+            return new FlightControllerSim(strafeXPin, strafeYPin, anglePin, liftPin);
         } else {
             return new FlightControllerReal(strafeXPin, strafeYPin, anglePin, liftPin);
         }
@@ -25,6 +25,8 @@ public abstract class FlightController {
     protected int mAnglePWM;
     protected int mLiftPWM;
 
+    protected boolean mIsInitialized = false;
+
     protected FlightController(int strafeXPin, int strafeYPin, int anglePin, int liftPin) {
         this.mStrafeXPin = strafeXPin;
         this.mStrafeYPin = strafeYPin;
@@ -37,6 +39,9 @@ public abstract class FlightController {
         this.mLiftPWM = 0;
     }
 
+    /**
+     * The percent from -1 to 1 for each movement
+     */
     public abstract void move(double strafeX, double strafeY, double angle, double lift);
 
     public int getStrafeXPWM() {
@@ -53,6 +58,16 @@ public abstract class FlightController {
 
     public int getLiftPWM() {
         return mLiftPWM;
+    }
+
+    public void initialize() {
+        move(0, 0, 0, 0);
+        Utils.sleep(100);
+        move(0, 0, 0, 1);
+        Utils.sleep(100);
+        move(0, 0, 0, 0);
+        Utils.sleep(2000);
+        mIsInitialized = true;
     }
 
 }

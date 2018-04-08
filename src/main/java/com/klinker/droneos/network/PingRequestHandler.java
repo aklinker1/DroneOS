@@ -17,6 +17,7 @@ public class PingRequestHandler extends RequestHandler {
         if (parameter.has("calledAt")) {
             return parameter;
         }
+
         
         JsonObject pingMessage = new JsonObject();
         pingMessage.addProperty(

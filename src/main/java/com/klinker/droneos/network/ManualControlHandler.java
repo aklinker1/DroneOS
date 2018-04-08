@@ -19,11 +19,11 @@ public class ManualControlHandler extends RequestHandler{
             data.addProperty("strafeY", parameters.get("strafeY").getAsDouble());
             data.addProperty("angle", parameters.get("angle").getAsDouble());
             data.addProperty("lift", parameters.get("lift").getAsDouble());
-            data.addProperty("isManuel",true);
+            data.addProperty("isManual", true);
             JsonMessage message = new JsonMessage(
                     ControlsNode.class,
                     NetworkNode.class,
-                    "control",
+                    ControlsNode.MESSAGE_CONTROL,
                     data
             );
             this.getNode().sendMessage(message);

@@ -47,7 +47,7 @@ public class Simulation {
      * If Your computer is lagging, you can turn this down. THE MINIMUM IS
      * 25. 30 is safer.
      */
-    private static final double FPS = 60.0;
+    public static final double FPS = 60.0;
 
 
     ///// Member Variables /////////////////////////////////////////////////////
@@ -78,8 +78,8 @@ public class Simulation {
         // set boat start location
         mDrone = new DroneCollision(
                 this,
-                Utils.random(-10, 10),
-                Utils.random(-10, 10),
+                Utils.random(-9, 9),
+                Utils.random(-9, 9),
                 Utils.random(0, Math.PI * 2)
         );
 

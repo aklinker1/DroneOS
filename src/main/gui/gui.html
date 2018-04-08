@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Simulation GUI</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="api.js"></script>
+  <link rel="stylesheet" href="gui.css">
+</head>
+
+<body>
+  <div class="horizontal">
+    <h1>Simulation Viewer</h1>
+    <div class="space"></div>
+    <p class="ping">
+      Ping:
+      <span id="ping">Not Connected</span>
+    </p>
+  </div>
+  <div class="horizontal">
+    <div class="space"></div>
+    <div id="xy">
+      <img src="drone-xy.svg" id="drone-xy">
+      <p class="over-text">
+        Overhead View
+        <br/> x:
+        <span id="cx"></span>
+        <br/> y:
+        <span id="cy"></span>
+        <br/> angle:
+        <span id="ca"></span>
+      </p>
+    </div>
+    <div class="space"></div>
+    <div id="z">
+      <img src="drone-z.svg" id="drone-z">
+      <p class="over-text">
+        Elevation View
+        <br/> z:
+        <span id="cz"></span>
+      </p>
+    </div>
+    <div class="space"></div>
+  </div>
+</body>
+
+<script src="gui.js"></script>
+
+</html>

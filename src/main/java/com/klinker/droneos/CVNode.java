@@ -2,13 +2,14 @@ package com.klinker.droneos;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
+import com.klinker.droneos.cv.CVUtils;
+import com.klinker.droneos.cv.ImageWindow;
 import com.klinker.droneos.hardware.Camera;
-import com.klinker.droneos.utils.io.ImageFile;
 
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 
 /**
  * TODO: Node specific documentation.
@@ -17,16 +18,26 @@ public class CVNode extends Node {
 
     ///// Constants ////////////////////////////////////////////////////////////
 
+    public static final String MESSAGE_MANUAL_FIND = "manual-find";
+
     ///// Member Variables /////////////////////////////////////////////////////
 
+    private ImageWindow mWindow;
+
     private Camera mCamera;
+
+    private boolean mIsLandingVisible;
+
+    private boolean mIsManualFindFinsihed;
 
     ///// Construction /////////////////////////////////////////////////////////
 
     public CVNode(String dataPath) {
         super(dataPath);
         mCamera = new Camera();
-        mCamera.open();
+        mIsLandingVisible = false;
+        mIsManualFindFinsihed = false;
+        mWindow = new ImageWindow("CVNode");
     }
 
 
@@ -37,7 +48,11 @@ public class CVNode extends Node {
      */
     @Override
     public void onReceiveMessage(Message message) {
-
+        switch (message.getName()) {
+            case MESSAGE_MANUAL_FIND:
+                if (mIsLandingVisible) mIsManualFindFinsihed = true;
+                break;
+        }
     }
 
     /**
@@ -56,25 +71,29 @@ public class CVNode extends Node {
 
 
     ///// Task Callbacks ///////////////////////////////////////////////////////
-
-
     @Override
     protected void onInitializingTask() {
         super.onInitializingTask();
-        long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < 3000) {
+        mCamera.open();
+        mWindow.setVisible(true);
+    }
+
+    @Override
+    protected void onManualFindTask() {
+        super.onManualFindTask();
+        while (!mIsManualFindFinsihed) {
             Mat frame = mCamera.getFrame();
-            ImageFile file = new ImageFile(
-                    Core.DIR_SENSOR_OUTPUT + "/camera",
-                    System.currentTimeMillis() + ".jpg"
-            );
-            file.write(frame);
+            Point vector = CVUtils.findChessboard(frame);
+            mWindow.loadImage(frame);
+            mIsLandingVisible = vector != null;
         }
     }
 
     @Override
     protected void onFinishUpTask() {
         super.onFinishUpTask();
+        mWindow.closeWindow();
+        mCamera.close();
     }
 
 }

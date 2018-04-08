@@ -2,8 +2,10 @@ package com.klinker.droneos;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
+import com.klinker.droneos.utils.Utils;
 
 public class HardwareNode extends Node {
 
@@ -57,6 +59,11 @@ public class HardwareNode extends Node {
     @Override
     protected void onInitializingTask() {
         super.onInitializingTask();
+    }
+
+    @Override
+    protected void onManualFindTask() {
+        super.onManualFindTask();
     }
 
     @Override

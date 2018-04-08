@@ -1,0 +1,62 @@
+body, html, body * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #dddddd;
+}
+
+.horizontal {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.space {
+  flex-grow: 1;
+}
+
+#xy, #z {
+  border: 1px solid #181818;
+  position: relative;
+  overflow: hidden;
+  background-color: #eeeeee;
+}
+
+#xy {
+  width: 80vh;
+  height: 80vh;
+}
+
+#z {
+  width: 144px;
+  height: 80vh;
+  border-bottom: 16px solid #181818;
+}
+
+#drone-xy, #drone-z {
+  position: absolute;
+  visibility: hidden;
+}
+
+#drone-z {
+  left: 50%;
+  bottom: 0%;
+  width: 70%;
+  transform: translateX(-50%);
+}
+
+#drone-xy {
+  width: 10%;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  transition: 100ms;
+}
+
+.over-text {
+  padding: 8px;
+  color: #808080;
+}

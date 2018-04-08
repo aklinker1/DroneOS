@@ -1,0 +1,6 @@
+{
+  "strafeXPin": 0,
+  "strafeYPin": 1,
+  "anglePin": 2,
+  "liftPin": 3
+}

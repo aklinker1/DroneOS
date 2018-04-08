@@ -1,0 +1,51 @@
+<svg width="160" height="160" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>drone-xy</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(30 30)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -30 -30L 130 -30L 130 130L -30 130L -30 -30Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="drone-xy" clip-path="url(#clip-0)">
+<g id="Frame">
+<g id="Rectangle 2">
+<use xlink:href="#path0_stroke" fill="#000000" fill-opacity="0.2"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path1_fill" transform="translate(35 0)" fill="#303030"/>
+</g>
+<g id="Rectangle 3">
+<use xlink:href="#path2_fill" transform="matrix(0.5 0.866025 -0.866025 0.5 100.33 -7)" fill="#303030"/>
+</g>
+<g id="Rectangle 3.1">
+<use xlink:href="#path2_fill" transform="matrix(-0.5 0.866025 -0.866025 -0.5 106.275 97.3258)" fill="#303030"/>
+</g>
+<g id="Rectangle 3.2">
+<use xlink:href="#path2_fill" transform="matrix(-0.5 0.866025 0.866025 0.5 -1.05461 -7)" fill="#303030"/>
+</g>
+<g id="Rectangle 3.3">
+<use xlink:href="#path2_fill" transform="matrix(0.5 0.866025 0.866025 -0.5 -7 97.3258)" fill="#303030"/>
+</g>
+</g>
+<g id="Props">
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(-30 -30)" fill="#2196F3" fill-opacity="0.75"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(70 -30)" fill="#2196F3" fill-opacity="0.75"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(-30 70)" fill="#2196F3" fill-opacity="0.75"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_fill" transform="translate(70 70)" fill="#2196F3" fill-opacity="0.75"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 0 0L 0 -0.5L -0.5 -0.5L -0.5 0L 0 0ZM 100 0L 100.5 0L 100.5 -0.5L 100 -0.5L 100 0ZM 100 100L 100 100.5L 100.5 100.5L 100.5 100L 100 100ZM 0 100L -0.5 100L -0.5 100.5L 0 100.5L 0 100ZM 0 0.5L 100 0.5L 100 -0.5L 0 -0.5L 0 0.5ZM 99.5 0L 99.5 100L 100.5 100L 100.5 0L 99.5 0ZM 100 99.5L 0 99.5L 0 100.5L 100 100.5L 100 99.5ZM 0.5 100L 0.5 0L -0.5 0L -0.5 100L 0.5 100Z"/>
+<path id="path1_fill" d="M 0 15C 0 6.71573 6.71573 0 15 0L 15 0C 23.2843 0 30 6.71573 30 15L 30 91L 0 91L 0 15Z"/>
+<path id="path2_fill" d="M 0 5.5C 0 2.46244 2.46243 0 5.5 0L 5.5 0C 8.53757 0 11 2.46243 11 5.5L 11 54.6515L 0 54.6515L 0 5.5Z"/>
+<path id="path3_fill" d="M 60 30C 60 46.5685 46.5685 60 30 60C 13.4315 60 0 46.5685 0 30C 0 13.4315 13.4315 0 30 0C 46.5685 0 60 13.4315 60 30Z"/>
+</defs>
+</svg>

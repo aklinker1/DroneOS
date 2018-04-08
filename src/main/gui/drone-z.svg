@@ -1,0 +1,61 @@
+<svg width="160" height="23" viewBox="0 0 160 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>drone-z</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-149 30)">
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M 149 -30L 309 -30L 309 -6.99999L 149 -6.99999L 149 -30Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="drone-z" clip-path="url(#clip-0)">
+<g id="Frame">
+<g id="Rectangle">
+<use xlink:href="#path0_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 205 -11)" fill="#303030"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path0_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 284 -11)" fill="#303030"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 279 -9)" fill="#303030"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 279 -13)" fill="#303030"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path1_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 279 -30)" fill="#303030"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path2_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 196 -28)" fill="#C4C4C4"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path2_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 222 -28)" fill="#C4C4C4"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path2_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 248 -28)" fill="#C4C4C4"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path2_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 274 -28)" fill="#C4C4C4"/>
+</g>
+</g>
+<g id="Props">
+<g id="Rectangle">
+<use xlink:href="#path3_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 284 -22)" fill="#9E9E9E"/>
+</g>
+<g id="Rectangle">
+<use xlink:href="#path3_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 185 -22)" fill="#9E9E9E"/>
+</g>
+<g id="Rectangle" opacity="0.75">
+<use xlink:href="#path4_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 209 -26)" fill="#2196F3"/>
+</g>
+<g id="Rectangle" opacity="0.75">
+<use xlink:href="#path4_fill" transform="matrix(-4.37114e-08 1 -1 -4.37114e-08 309 -26)" fill="#2196F3"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 0L 2 0L 2 31L 0 31L 0 0Z"/>
+<path id="path1_fill" d="M 0 0L 2 0L 2 91L 0 91L 0 0Z"/>
+<path id="path2_fill" d="M 0 0L 15 0L 15 2L 0 2L 0 0Z"/>
+<path id="path3_fill" d="M 0 0L 11 0L 11 11L 0 11L 0 0Z"/>
+<path id="path4_fill" d="M 0 0L 7 0L 7 60L 0 60L 0 0Z"/>
+</defs>
+</svg>

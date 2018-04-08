@@ -25,7 +25,7 @@ public class InfoHandler extends RequestHandler {
             data.addProperty("x", boat.getPoint().x);
             data.addProperty("y", boat.getPoint().y);
             data.addProperty("z", boat.getPoint().z);
-            data.addProperty("angle", boat.getAngle());
+            data.addProperty("a", Math.toDegrees(boat.getAngle()));
         } else {
             data.addProperty(
                     "message",
@@ -38,7 +38,7 @@ public class InfoHandler extends RequestHandler {
 
     @Override
     public String getEndpoint() {
-        return "/sim-info";
+        return "/simulation-info";
     }
 
 }

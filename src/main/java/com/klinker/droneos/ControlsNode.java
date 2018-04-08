@@ -9,6 +9,7 @@ import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.hardware.FlightController;
 import com.klinker.droneos.utils.Log;
+import com.klinker.droneos.utils.Utils;
 
 /**
  * To enter MANUAL mode, send a message with the following format:
@@ -31,6 +32,8 @@ public class ControlsNode extends Node {
 
     public static final double FULL_TORQUE_ANGLE_CUTOFF = Math.PI / 4;
 
+    public static final String MESSAGE_CONTROL = "control";
+
     ///// Member Variables /////////////////////////////////////////////////////
 
     private boolean mIsManual;
@@ -41,6 +44,7 @@ public class ControlsNode extends Node {
 
     public ControlsNode(String dataPath) {
         super(dataPath);
+        mIsManual = true;
         mFlightController = FlightController.newInstance(0, 1, 2, 3);
     }
 
@@ -66,7 +70,7 @@ public class ControlsNode extends Node {
             return;
         JsonObject json = ((JsonMessage) message).getData();
 
-        if (message.getName().equals("control") && json.get("isManual").getAsBoolean() == mIsManual) {
+        if (message.getName().equals(MESSAGE_CONTROL) && json.get("isManual").getAsBoolean() == mIsManual) {
             mFlightController.move(
                 json.get("strafeX").getAsDouble(), 
                 json.get("strafeY").getAsDouble(),
@@ -101,6 +105,16 @@ public class ControlsNode extends Node {
     @Override
     protected void onInitializingTask() {
         super.onInitializingTask();
+
+        // initialize the motors. The ESC will beep.
+        mFlightController.initialize();
+    }
+
+    @Override
+    protected void onManualFindTask() {
+        super.onManualFindTask();
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() - start < 10000) Utils.sleep(10);
     }
 
     @Override

@@ -15,14 +15,16 @@ public class FlightControllerSim extends FlightController {
 
 	@Override
 	public void move(double strafeX, double strafeY, double angle, double lift) {
-        mStrafeXPWM = (int) Math.round(Utils.map(strafeX, -1, 1, 0, MAX_PWM));
-        mStrafeYPWM = (int) Math.round(Utils.map(strafeY, -1, 1, 0, MAX_PWM));
-        mLiftPWM = (int) Math.round(Utils.map(lift, 0, 1, 0, MAX_PWM));
-        mAnglePWM = (int) Math.round(Utils.map(angle, -1, 1, 0, MAX_PWM));
-        mDrone.setStrafeXPWM(mStrafeXPWM);
-        mDrone.setStrafeYPWM(mStrafeYPWM);
-        mDrone.setStrafeXPWM(mLiftPWM);
-        mDrone.setStrafeXPWM(mAnglePWM);
+        if (mIsInitialized) {
+            mStrafeXPWM = (int) Math.round(Utils.map(strafeX, -1, 1, 0, MAX_PWM));
+            mStrafeYPWM = (int) Math.round(Utils.map(strafeY, -1, 1, 0, MAX_PWM));
+            mLiftPWM = (int) Math.round(Utils.map(lift, 0, 1, 0, MAX_PWM));
+            mAnglePWM = (int) Math.round(Utils.map(angle, -1, 1, 0, MAX_PWM));
+            mDrone.setStrafeXPWM(mStrafeXPWM);
+            mDrone.setStrafeYPWM(mStrafeYPWM);
+            mDrone.setLiftPWM(mLiftPWM);
+            mDrone.setAnglePWM(mAnglePWM);
+        }
     }
     
 }
