@@ -31,7 +31,10 @@ public class Core {
             OS_IS_LINUX = true;
             openCV = new File("libs/opencv" + bits, "opencv_java320.so");
         }
+        System.setProperty("java.library.path", "./libs");
+        System.out.println(openCV.getAbsolutePath());
         System.load(openCV.getAbsolutePath());
+        System.out.println("Loaded Library");
     }
 
 
