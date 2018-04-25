@@ -8,17 +8,29 @@ import com.pi4j.wiringpi.Gpio;
 
 public class FlightControllerReal extends FlightController {
 
+    Runtime runTime;
+
     FlightControllerReal(int strafeXPin, int strafeYPin, int anglePin, int liftPin) {
         super(strafeXPin, strafeYPin, anglePin, liftPin);
-        Gpio.pinMode(7, Gpio.PWM_OUTPUT);
-        Gpio.pwmSetMode(Gpio.PWM_MODE_MS);
-        Gpio.pwmSetClock(384);
-        Gpio.pwmSetRange(1000);
+        try {
+            runTime = Runtime.getRuntime();
+            runTime.exec("gpio mode " + 1 + " pwm");
+            runTime.exec("gpio pwm-ms");
+            runTime.exec("gpio pwmc 192");
+            runTime.exec("gpio pwmr 2000");
+        } catch (Exception e) {
+            System.out.println("Exception occured: " + e.getMessage());
+        }
     }
 
 	@Override
 	public void move(double strafeX, double strafeY, double angle, double lift) {
-        Gpio.pwmWrite(7, 75);
+        try {
+            System.out.println("gpio pwm " + 1 + " " + (lift * 100 + 100));
+            runTime.exec("gpio pwm " + 1 + " " + (lift * 100 + 100));
+        } catch (Exception e) {
+            System.out.println("Exception occured: " + e.getMessage());
+        }
     }
     
 }
