@@ -2,6 +2,7 @@ package com.klinker.droneos;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.arch.communication.messages.Message;
 import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.cv.CVUtils;
@@ -37,7 +38,7 @@ public class CVNode extends Node {
         mCamera = new Camera();
         mIsLandingVisible = false;
         mIsManualFindFinsihed = false;
-        mWindow = new ImageWindow("CVNode");
+        if (Core.IS_SIMULATION) mWindow = new ImageWindow("CVNode");
     }
 
 
@@ -75,7 +76,8 @@ public class CVNode extends Node {
     protected void onInitializingTask() {
         super.onInitializingTask();
         mCamera.open();
-        mWindow.setVisible(true);
+        if (Core.IS_SIMULATION)
+            mWindow.setVisible(true);
     }
 
     @Override
@@ -84,7 +86,8 @@ public class CVNode extends Node {
         while (!mIsManualFindFinsihed) {
             Mat frame = mCamera.getFrame();
             Point vector = CVUtils.findChessboard(frame);
-            mWindow.loadImage(frame);
+            if (Core.IS_SIMULATION)
+                mWindow.loadImage(frame);
             mIsLandingVisible = vector != null;
         }
     }
@@ -92,7 +95,8 @@ public class CVNode extends Node {
     @Override
     protected void onFinishUpTask() {
         super.onFinishUpTask();
-        mWindow.closeWindow();
+        if (Core.IS_SIMULATION)
+            mWindow.closeWindow();
         mCamera.close();
     }
 
