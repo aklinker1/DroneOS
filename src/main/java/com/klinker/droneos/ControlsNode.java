@@ -114,7 +114,7 @@ public class ControlsNode extends Node {
     protected void onManualFindTask() {
         super.onManualFindTask();
         long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < 10000) Utils.sleep(10);
+        while (System.currentTimeMillis() - start < 30000) Utils.sleep(10);
     }
 
     @Override
