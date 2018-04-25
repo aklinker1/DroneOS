@@ -7,10 +7,6 @@
       "port": 4000,
       "nodes": [
         {
-          "class": "com.klinker.droneos.CVNode",
-          "data": "src/main/resources/node-data/cv.json"
-        },
-        {
           "class": "com.klinker.droneos.HardwareNode",
           "data": "src/main/resources/node-data/hardware.json"
         },

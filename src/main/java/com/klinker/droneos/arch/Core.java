@@ -15,26 +15,6 @@ import com.klinker.droneos.utils.async.RunnableExecutor;
 
 public class Core {
 
-    ///// Native Library Declarations //////////////////////////////////////////
-
-    static {
-        File openCV;
-        String bits = System.getProperty("sun.arch.data.model");
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) {
-            OS_IS_WINDOWS = true;
-            openCV = new File("libs/opencv" + bits, "opencv_java320.dll");
-        } else if (os.contains("mac")) {
-            OS_IS_MAC = true;
-            openCV = new File("libs/opencv" + bits, "opencv_java320.dylib");
-        } else {
-            OS_IS_LINUX = true;
-            openCV = new File("libs/opencv" + bits, "opencv_java320.so");
-        }
-        System.load(openCV.getAbsolutePath());
-    }
-
-
     ///// Constants ////////////////////////////////////////////////////////////
 
     /**

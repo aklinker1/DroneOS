@@ -1,5 +1,7 @@
 package com.klinker.droneos.hardware;
 
+import java.io.File;
+
 import com.klinker.droneos.arch.Core;
 import com.klinker.droneos.utils.Log;
 
@@ -10,6 +12,25 @@ import org.opencv.videoio.VideoCapture;
  * Sensor wrapper for getting images from a camera.
  */
 public class Camera {
+
+    ///// Native Library Declarations //////////////////////////////////////////
+
+    static {
+        /*File openCV;
+        String bits = System.getProperty("sun.arch.data.model");
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            Core.OS_IS_WINDOWS = true;
+            openCV = new File("libs/opencv" + bits, "opencv_java320.dll");
+        } else if (os.contains("mac")) {
+            Core.OS_IS_MAC = true;
+            openCV = new File("libs/opencv" + bits, "opencv_java320.dylib");
+        } else {
+            Core.OS_IS_LINUX = true;
+            openCV = new File("libs/opencv" + bits, "opencv_java320.so");
+        }
+        System.load(openCV.getAbsolutePath());*/
+    }
 
     ///// Member Variable //////////////////////////////////////////////////////
 
