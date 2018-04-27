@@ -19,6 +19,7 @@ public abstract class FlightController {
     protected int mStrafeYPin;
     protected int mAnglePin;
     protected int mLiftPin;
+    protected boolean armed;
 
     protected int mStrafeXPWM;
     protected int mStrafeYPWM;
@@ -60,14 +61,15 @@ public abstract class FlightController {
         return mLiftPWM;
     }
 
-    public void initialize() {
-        move(0, 0, 0, 0);
-        Utils.sleep(100);
-        move(0, 0, 0, 1);
-        Utils.sleep(100);
-        move(0, 0, 0, 0);
-        Utils.sleep(2000);
-        mIsInitialized = true;
+    public void arm(boolean armed) {
+        this.armed = armed;
     }
 
+    public boolean isArmed() {
+        return armed;
+    }
+
+    public abstract void initialize();
+
+    public abstract void stop();
 }

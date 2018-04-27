@@ -26,5 +26,15 @@ public class FlightControllerSim extends FlightController {
             mDrone.setAnglePWM(mAnglePWM);
         }
     }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public void initialize() {
+
+    }
     
 }

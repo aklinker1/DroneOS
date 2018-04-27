@@ -1,36 +1,109 @@
 package com.klinker.droneos.hardware;
 
-import java.io.IOException;
-import java.util.List;
+import com.fazecast.jSerialComm.SerialPort;
+import static com.fazecast.jSerialComm.SerialPort.*;
+
+import java.util.Deque;
+import java.util.LinkedList;
 
 import com.klinker.droneos.utils.Log;
-import com.pi4j.wiringpi.Gpio;
+import com.klinker.droneos.utils.Utils;
+
+import arduino.Arduino;
 
 public class FlightControllerReal extends FlightController {
 
-    Runtime runTime;
+    private String MOVE = "m%04d%04d%04d%04d";
+    private final String INITIAL = "m1000150015001500";
+
+    private SerialPort mPort;
+    private Arduino arduino;
+
+    private Thread commandThread = null;
+    private LinkedList<Command> queue = new LinkedList<>();
+
+    private boolean open = false;
+
+    private class Command {
+        String command;
+        long time;
+
+        Command(String command) {
+            this.command = command;
+            this.time = System.currentTimeMillis();
+        }
+
+        void execute() {
+            Log.d("flight_controller", "Comand: " + command);
+            arduino.serialWrite(this.command);
+            // mPort.writeBytes(command.getBytes(), command.length());
+        }
+    }
 
     FlightControllerReal(int strafeXPin, int strafeYPin, int anglePin, int liftPin) {
         super(strafeXPin, strafeYPin, anglePin, liftPin);
-        try {
-            runTime = Runtime.getRuntime();
-            runTime.exec("gpio mode " + 1 + " pwm");
-            runTime.exec("gpio pwm-ms");
-            runTime.exec("gpio pwmc 192");
-            runTime.exec("gpio pwmr 2000");
-        } catch (Exception e) {
-            System.out.println("Exception occured: " + e.getMessage());
+        arduino = new CArduino("ttyACM0", 9600);
+        commandThread = new Thread(() -> {
+            Command c;
+            while (open) if (hasCommands()) {
+                c = dequeueCommand();
+                if (System.currentTimeMillis() - c.time < 20) c.execute();
+                else Log.d("flight_controller", "Skipped command");
+            }
+        });
+    }
+
+    @Override
+    public void initialize() {
+        arduino.openConnection();
+        open = true;
+        commandThread.start();
+        sendCommand(INITIAL);
+    }
+
+    @Override
+    public void move(double strafeX, double strafeY, double angle, double lift) {
+        if (armed) {
+            sendCommand(String.format(
+                    MOVE, 
+                    (int) Math.round(lift * 1000) + 1000, 
+                    (int) Math.round(strafeX * 1000) + 1500,
+                    (int) Math.round(strafeY * 1000) + 1500, 
+                    (int) Math.round(angle * 1000) + 1500
+            ));
         }
     }
 
-	@Override
-	public void move(double strafeX, double strafeY, double angle, double lift) {
-        try {
-            System.out.println("gpio pwm " + 1 + " " + (lift * 100 + 100));
-            runTime.exec("gpio pwm " + 1 + " " + (lift * 100 + 100));
-        } catch (Exception e) {
-            System.out.println("Exception occured: " + e.getMessage());
-        }
+    @Override
+    public void stop() {
+        sendCommand(INITIAL);
+        Utils.sleep(2000);
+        sendCommand("a0");
+        open = false;
+        arduino.closeConnection();
+        commandThread.interrupt();
     }
-    
+
+    @Override
+    public void arm(boolean armed) {
+        super.arm(armed);
+        sendCommand("a" + (armed ? 1 : 0));
+    }
+
+    private void sendCommand(String command) {
+        enqueueCommand(new Command(command + ';'));
+    }
+
+    public synchronized void enqueueCommand(Command c) {
+        queue.addLast(c);
+    }
+
+    public synchronized Command dequeueCommand() {
+        return queue.removeFirst();
+    }
+
+    public synchronized boolean hasCommands() {
+        return !queue.isEmpty();
+    }
+
 }

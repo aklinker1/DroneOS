@@ -14,6 +14,7 @@ import com.klinker.droneos.arch.nodes.Node;
 import com.klinker.droneos.network.InfoHandler;
 import com.klinker.droneos.network.ManualControlHandler;
 import com.klinker.droneos.network.PingRequestHandler;
+import com.klinker.droneos.network.ArmRequestHandler;
 import com.klinker.droneos.network.RequestHandler;
 import com.klinker.droneos.utils.Log;
 import com.klinker.droneos.utils.Utils;
@@ -130,7 +131,8 @@ public class NetworkNode extends Node {
             RequestHandler[] requestEndpointHandlers = new RequestHandler[] {
                     new PingRequestHandler(this, "GET"),
                     new InfoHandler(this, "GET"),
-                    new ManualControlHandler(this,"POST")
+                    new ManualControlHandler(this,"POST"),
+                    new ArmRequestHandler(this,"POST")
             };
             for (RequestHandler handler : requestEndpointHandlers) {
                 mServer.createContext(handler.getEndpoint(), handler);

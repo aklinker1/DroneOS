@@ -143,11 +143,11 @@ public abstract class Node {
         if (mTaskCount > warningTaskCount) {
             Log.w("arch",
                     getClass().getSimpleName() + " has more than " + warningTaskCount + " active threads in parallel. "
-                            + "Be careful to not excede " + RunnableExecutor.MAX_PARALLEL_COUNT);
+                            + "Be careful to not excede " + RunnableExecutor.MAX_PARALLEL_COUNT + ": " + mTaskCount);
         }
         if (mTaskCount > RunnableExecutor.MAX_PARALLEL_COUNT) {
             Log.e("arch", getClass().getSimpleName() + " has more than 25 "
-                    + "tasks running. Change how you handle the message" + " results.");
+                    + "tasks running. Change how you handle the message" + " results: " + mTaskCount);
         }
     }
 

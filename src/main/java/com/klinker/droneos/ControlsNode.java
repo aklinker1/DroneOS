@@ -33,6 +33,7 @@ public class ControlsNode extends Node {
     public static final double FULL_TORQUE_ANGLE_CUTOFF = Math.PI / 4;
 
     public static final String MESSAGE_CONTROL = "control";
+    public static final String MESSAGE_ARM = "arm";
 
     ///// Member Variables /////////////////////////////////////////////////////
 
@@ -70,7 +71,9 @@ public class ControlsNode extends Node {
             return;
         JsonObject json = ((JsonMessage) message).getData();
 
-        if (message.getName().equals(MESSAGE_CONTROL) && json.get("isManual").getAsBoolean() == mIsManual) {
+        if (message.getName().equals(MESSAGE_ARM)) {
+            mFlightController.arm(json.get("arm").getAsBoolean());
+        } else if (message.getName().equals(MESSAGE_CONTROL) && json.get("isManual").getAsBoolean() == mIsManual) {
             mFlightController.move(
                 json.get("strafeX").getAsDouble(), 
                 json.get("strafeY").getAsDouble(),
@@ -105,21 +108,23 @@ public class ControlsNode extends Node {
     @Override
     protected void onInitializingTask() {
         super.onInitializingTask();
-
-        // initialize the motors. The ESC will beep.
         mFlightController.initialize();
     }
 
     @Override
     protected void onManualFindTask() {
         super.onManualFindTask();
-        long start = System.currentTimeMillis();
-        while (System.currentTimeMillis() - start < 30000) Utils.sleep(10);
+        while (!mFlightController.isArmed()) 
+            Utils.sleep(100);
+        Utils.sleep(1000);
+        while (mFlightController.isArmed())
+            Utils.sleep(100);
     }
 
     @Override
     protected void onFinishUpTask() {
         super.onFinishUpTask();
+        mFlightController.stop();
     }
 
     ///// Member Methods ///////////////////////////////////////////////////////
