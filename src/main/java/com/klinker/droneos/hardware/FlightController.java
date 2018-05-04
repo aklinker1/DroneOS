@@ -69,6 +69,10 @@ public abstract class FlightController {
         return armed;
     }
 
+    public void hover(boolean hover) {}
+
+    public void drop(boolean drop) {}
+
     public abstract void initialize();
 
     public abstract void stop();

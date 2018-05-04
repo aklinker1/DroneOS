@@ -34,6 +34,8 @@ public class ControlsNode extends Node {
 
     public static final String MESSAGE_CONTROL = "control";
     public static final String MESSAGE_ARM = "arm";
+    public static final String MESSAGE_DROP = "drop";
+    public static final String MESSAGE_HOVER = "hover";
 
     ///// Member Variables /////////////////////////////////////////////////////
 
@@ -73,6 +75,10 @@ public class ControlsNode extends Node {
 
         if (message.getName().equals(MESSAGE_ARM)) {
             mFlightController.arm(json.get("arm").getAsBoolean());
+        } else if (message.getName().equals(MESSAGE_HOVER)) {
+            mFlightController.hover(json.get("hover").getAsBoolean());
+        } else if (message.getName().equals(MESSAGE_DROP)) {
+            mFlightController.drop(json.get("drop").getAsBoolean());
         } else if (message.getName().equals(MESSAGE_CONTROL) && json.get("isManual").getAsBoolean() == mIsManual) {
             mFlightController.move(
                 json.get("strafeX").getAsDouble(), 

@@ -90,6 +90,16 @@ public class FlightControllerReal extends FlightController {
         sendCommand("a" + (armed ? 1 : 0));
     }
 
+    @Override
+    public void hover(boolean hover) {
+        sendCommand("h" + (hover ? 1 : 0));
+    }
+
+    @Override
+    public void drop(boolean drop) {
+        sendCommand("d" + (drop ? 1 : 0));
+    }
+
     private void sendCommand(String command) {
         enqueueCommand(new Command(command + ';'));
     }

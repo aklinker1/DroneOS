@@ -16,7 +16,7 @@ public class Camera {
     ///// Native Library Declarations //////////////////////////////////////////
 
     static {
-        /*File openCV;
+        File openCV;
         String bits = System.getProperty("sun.arch.data.model");
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("win")) {
@@ -29,7 +29,7 @@ public class Camera {
             Core.OS_IS_LINUX = true;
             openCV = new File("libs/opencv" + bits, "opencv_java320.so");
         }
-        System.load(openCV.getAbsolutePath());*/
+        System.load(openCV.getAbsolutePath());
     }
 
     ///// Member Variable //////////////////////////////////////////////////////
